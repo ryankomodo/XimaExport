@@ -25,6 +25,7 @@ import argparse
 from lib.tools import printHeader, printInd, printNumHeader
 from lib import tools
 from urllib import urlretrieve
+import re
 try:
     import mutagen
     HAS_MUTAGEN=True
@@ -43,7 +44,8 @@ else:
 
 
 
-
+#------------Replace invalid symbols in paths------------
+REPATTERN=re.compile(r'[\,/,:,*,?,",<,>,|,\\]',re.UNICODE)
 
 #-------Fetch a column from pandas dataframe-------
 fetchField=lambda x, f: x[f].unique().tolist()
@@ -55,7 +57,7 @@ def convertPath(url):
     This is necessary for filenames with unicode strings.
     '''
 
-    url=tools.enu(url)
+    #url=tools.enu(url)
     path=os.path.abspath(url)
 
     return path
@@ -224,7 +226,8 @@ def processAlbum(df,indir,outdir,albumid,verbose=True):
         tmpfile=False
         gotfile=False
 
-        newname='%s-%s.mp3' %(title,artist)
+        newname="%s-%s.mp3" %(title,artist)
+	newname=REPATTERN.sub(' ',newname)
         newname=os.path.join(tools.deu(subfolder),newname)
         newname=convertPath(newname)
 
