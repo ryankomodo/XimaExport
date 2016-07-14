@@ -321,7 +321,7 @@ class MainFrame(Frame):
         self.start_button.configure(state=tk.DISABLED)
         self.help_button.configure(state=tk.DISABLED)
         self.albummenu.configure(state=tk.DISABLED)
-        self.messagelabel.configure(text='信息 (处理中...)')
+        self.messagelabel.configure(text=dgbk('信息 (处理中...)'))
 
         album=None if self.album=='All' else self.album
 
