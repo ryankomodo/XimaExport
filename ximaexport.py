@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 '''
 - Bulk export downloaded audios in Ximalaya.
 - Auto rename exported audios using a configurable format.
@@ -50,7 +51,7 @@ REPATTERN=re.compile(r'[\,/,:,*,?,",<,>,|,\\]',re.UNICODE)
 #-------Fetch a column from pandas dataframe-------
 fetchField=lambda x, f: x[f].unique().tolist()
 
-
+dgbk=lambda x: x.decode('gbk')
 
 def convertPath(url):
     '''Convert a url string to an absolute path
@@ -232,7 +233,8 @@ def processAlbum(df,indir,outdir,albumid,verbose=True):
         newname=convertPath(newname)
 
         if verbose:
-            printInd('Getting file for: %s' %title, 2)
+            #printInd('Getting file for: %s' %title, 2)
+            printInd(dgbk('获取文件: ')+title, 2)
 
         #-----If imcomplete download, try downloading now-----
         if downloaded<totalBytes:
@@ -276,7 +278,8 @@ def processAlbum(df,indir,outdir,albumid,verbose=True):
         if HAS_MUTAGEN:
 
             if verbose:
-                printInd('Writing metadata for: %s' %title, 2)
+                #printInd('Writing metadata for: %s' %title, 2)
+                printInd(dgbk('为音频写入元数据: ')+title, 2)
 
             #--------------------mp3 format--------------------
             meta={'title':title, 'artist': artist, 'album': albumname,\
@@ -306,10 +309,12 @@ def main(dbfile,outdir,album,verbose):
     try:
         db = sqlite3.connect(dbfile)
         if verbose:
-            printHeader('Connected to database:')
+            #printHeader('Connected to database:')
+            printHeader(dgbk('打开数据文件:'))
             printInd(dbfile,2)
     except:
-        printHeader('Failed to connect to database:')
+        #printHeader('Failed to connect to database:')
+        printHeader(dgbk('无法打开数据文件'))
         printInd(dbfile)
         return 1
 
@@ -337,7 +342,8 @@ def main(dbfile,outdir,album,verbose):
     for ii,albumii in enumerate(albumlist):
         idii,albumnameii=albumii
         if verbose:
-            printNumHeader('Processing album: "%s"' %albumnameii,\
+            #printNumHeader('Processing album: "%s"' %albumnameii,\
+	    printNumHeader(dgbk('处理专辑: "')+albumnameii+'"',\
                 ii+1,len(albumlist),1)
         failistii,metafaillistii=processAlbum(df,indir,outdir,idii,verbose)
         faillist.extend(failistii)
@@ -345,26 +351,31 @@ def main(dbfile,outdir,album,verbose):
 
     #-----------------Close connection-----------------
     if verbose:
-        printHeader('Drop connection to database:')
+        #printHeader('Drop connection to database:')
+	printHeader(dgbk('关闭数据文件:'))
     db.close()
 
     #------------------Print summary------------------
     faillist=list(set(faillist))
     metafaillist=list(set(metafaillist))
 
-    printHeader('Summary',1)
+    #printHeader('Summary',1)
+    printHeader(dgbk('总结'),1)
     if len(faillist)>0:
-        printHeader('Failed to export:',2)
+        #printHeader('Failed to export:',2)
+        printHeader(dgbk('拷贝失败:'),2)
         for failii in faillist:
             printInd(failii,2)
 
     if len(metafaillist)>0:
-        printHeader('Failed to write meta data in:',2)
+        #printHeader('Failed to write meta data in:',2)
+        printHeader(dgbk('元数据写入失败:'),2)
         for failii in metafaillist:
             printInd(failii,2)
 
     if len(faillist)==0 and len(metafaillist)==0:
-        printHeader('All done.',2)
+        #printHeader('All done.',2)
+        printHeader(dgbk('全部完成'),2)
 
     return 0
 
