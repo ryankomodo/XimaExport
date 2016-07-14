@@ -8,9 +8,21 @@ XimaExport 可以帮助你批量重命名音频文件，按专辑分类存储，
 
 ## 安装：
 
-* Win10 用户：
-* Win7 用户：
-* Linux 用户：
+1. 免安装可执行程序：
+  * win10 用户：到Dropbox () 或某度云盘（）下载ximaexport-gui.rar。解压。
+  * win7 用户：暂无
+  * Mac 用户：暂无
+
+
+2. 执行python代码：
+  确保以下 dependencies 满足：
+  * pandas
+  * sqlite3
+  * mutagen (可选）
+  
+  下载代码后，运行
+  `python ximaexport-gui.py`
+
 
 ## 使用
 
