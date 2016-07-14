@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 '''
 GUI for ximaexport.py
 
@@ -36,7 +37,9 @@ else:
 
 stdout=sys.stdout
 
-
+def printch(x):
+    print(x.decode('gbk'))
+dgbk=lambda x: x.decode('gbk')
 
 
 class Redirector(object):
@@ -64,7 +67,8 @@ class WorkThread(threading.Thread):
         self.stateq=stateq
 
     def run(self):
-        print('\nStart processing...')
+        #print('\nStart processing...')
+        printch('\n开始处理...')
         if not self._stop.is_set():
             ximaexport.main(*self.args)
             self.stateq.put('done')
@@ -134,7 +138,8 @@ class MainFrame(Frame):
 
         if self.hasdb and self.hasout:
             self.start_button.configure(state=tk.NORMAL)
-            print('XimaExport Ready.')
+            #print('XimaExport Ready.')
+            printch('XimaExport 就绪.')
         else:
             self.start_button.configure(state=tk.DISABLED)
 
@@ -146,7 +151,7 @@ class MainFrame(Frame):
         frame.columnconfigure(1,weight=1)
 
         #------------------Database file------------------
-        label=tk.Label(frame,text='ting.sqlite Data file:',\
+        label=tk.Label(frame,text=dgbk('ting.sqlite文件:'),\
                 bg='#bbb')
         label.grid(row=0,column=0,\
                 sticky=tk.W,padx=8)
@@ -154,18 +159,18 @@ class MainFrame(Frame):
         self.db_entry=tk.Entry(frame)
         self.db_entry.grid(row=0,column=1,sticky=tk.W+tk.E,padx=8)
 
-        self.db_button=tk.Button(frame,text='Open',command=self.openFile)
+        self.db_button=tk.Button(frame,text=dgbk('打开'),command=self.openFile)
         self.db_button.grid(row=0,column=2,padx=8,sticky=tk.E)
 
         #--------------------Output dir--------------------
-        label2=tk.Label(frame,text='Output folder:',\
+        label2=tk.Label(frame,text=dgbk('导出到文件夹:'),\
                 bg='#bbb')
         label2.grid(row=2,column=0,\
                 sticky=tk.W,padx=8)
 
         self.out_entry=tk.Entry(frame)
         self.out_entry.grid(row=2,column=1,sticky=tk.W+tk.E,padx=8)
-        self.out_button=tk.Button(frame,text='Choose',command=self.openDir)
+        self.out_button=tk.Button(frame,text=dgbk('选择'),command=self.openDir)
         self.out_button.grid(row=2,column=2,padx=8,sticky=tk.E)
         
 
@@ -175,7 +180,9 @@ class MainFrame(Frame):
         dirname=askdirectory()
         self.out_entry.insert(tk.END,dirname)
         if len(dirname)>0:
-            print('Output folder: %s' %dirname)
+            #print('Output folder: %s' %dirname)
+            printch('输出到文件夹:')
+	    print('   '+dirname)
             self.hasout=True
             self.checkReady()
 
@@ -186,7 +193,9 @@ class MainFrame(Frame):
         filename=askopenfilename(filetypes=ftypes)
         self.db_entry.insert(tk.END,filename)
         if len(filename)>0:
-            print('Database file: %s' %filename)
+            #print('Database file: %s' %filename)
+            printch('数据文件:')
+	    print('   '+filename)
             self.probeAlbums()
 
 
@@ -205,7 +214,8 @@ class MainFrame(Frame):
             self.checkReady()
 
         except Exception as e:
-            print('Failed to recoganize the given database file.') 
+            #print('Failed to recoganize the given database file.') 
+            printch('无法识别sqlite数据文件.') 
             print(e)
 
 
@@ -229,7 +239,7 @@ class MainFrame(Frame):
                 pady=5)
 
         #-------------------Album options-------------------
-        albumlabel=tk.Label(subframe,text='Album:',\
+        albumlabel=tk.Label(subframe,text=dgbk('专辑:'),\
                 bg='#bbb')
         albumlabel.pack(side=tk.LEFT, padx=8)
 
@@ -242,7 +252,7 @@ class MainFrame(Frame):
         self.albummenu.pack(side=tk.LEFT,padx=8)
         
         #-------------------Quit button-------------------
-        quit_button=tk.Button(subframe,text='Quit',\
+        quit_button=tk.Button(subframe,text=dgbk('退出'),\
                 command=self.quit)
         quit_button.pack(side=tk.RIGHT,padx=8)
 
@@ -254,12 +264,12 @@ class MainFrame(Frame):
         '''
                 
         #-------------------Start button-------------------
-        self.start_button=tk.Button(subframe,text='Start',\
+        self.start_button=tk.Button(subframe,text=dgbk('开始'),\
                 command=self.start,state=tk.DISABLED)
         self.start_button.pack(side=tk.RIGHT,pady=8)
 
         #-------------------Help button-------------------
-        self.help_button=tk.Button(subframe,text='Help',\
+        self.help_button=tk.Button(subframe,text=dgbk('帮助'),\
                 command=self.showHelp)
         self.help_button.pack(side=tk.RIGHT,padx=8)
 
@@ -268,23 +278,34 @@ class MainFrame(Frame):
 
 
     def setAlbum(self,x):
+	import json
         self.albummenu.selection_clear()
         self.album=self.albummenu.get()
         self.albummenu.set(self.album)
         if self.album=='All':
-            print('Work on all albums.')
+            #print('Work on all albums.')
+            printch('导出所有专辑.')
         else:
-            print('Select album: '+self.album)
+            #print('Select album: '+self.album)
+            printch('导出所选专辑:')
+	    print('   '+self.album)
 
 
 
 
 
     def showHelp(self):
-        helpstr='''
-%s\n\n
-- Input file: ting.sqlite.\n
-''' %self.title
+        helpstr=dgbk('''\n\n
+导出喜马拉雅下载音频，并自动按专辑归档、重命名：\n
+1. 找到手机/pad中的喜马拉雅数据文件夹：\n
+    （1）苹果用户：链接电脑itunes，在app一栏中找到“喜马拉雅”，单击，右侧会出现“喜马拉雅”的数据文件。选择“iDoc”，并导出到电脑。\n
+    （2）安卓用户：链接电脑后，拷贝出ting文件夹。\n
+2. 运行ximaexport-gui.exe。\n
+    在 “ting.sqlite文件”一栏，选择步骤1中拷贝出的文件夹里的 ting.sqlite. 文件。\n
+    在 “导出到文件夹”一栏，选择音频存储位置。\n
+    在 “专辑”下拉菜单，选择要导出的专辑。若全部导出选择“All”。\n
+    点击“开始”开始处理。
+''')
 
         tkMessageBox.showinfo(title='Help', message=helpstr)
         #print(self.menfolder.get())
@@ -300,7 +321,7 @@ class MainFrame(Frame):
         self.start_button.configure(state=tk.DISABLED)
         self.help_button.configure(state=tk.DISABLED)
         self.albummenu.configure(state=tk.DISABLED)
-        self.messagelabel.configure(text='Message (working...)')
+        self.messagelabel.configure(text='信息 (处理中...)')
 
         album=None if self.album=='All' else self.album
 
@@ -324,7 +345,7 @@ class MainFrame(Frame):
                     self.start_button.configure(state=tk.NORMAL)
                     self.help_button.configure(state=tk.NORMAL)
                     self.albummenu.configure(state='readonly')
-                    self.messagelabel.configure(text='Message')
+                    self.messagelabel.configure(text=dgbk('消息'))
                     return
             except Queue.Empty:
                 pass
@@ -342,7 +363,7 @@ class MainFrame(Frame):
         frame.pack(fill=tk.BOTH,side=tk.TOP,\
                 expand=1,padx=8,pady=5)
 
-        self.messagelabel=tk.Label(frame,text='Message',bg='#bbb')
+        self.messagelabel=tk.Label(frame,text=dgbk('消息'),bg='#bbb')
         self.messagelabel.pack(side=tk.TOP,fill=tk.X)
 
         self.text=tk.Text(frame)
