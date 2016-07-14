@@ -8,33 +8,32 @@ XimaExport 可以帮助你批量重命名音频文件，按专辑分类存储，
 
 ## 安装：
 
-Win10 用户：
-Win7 用户：
-Linux 用户：
+* Win10 用户：
+* Win7 用户：
+* Linux 用户：
 
 ## 使用
 
 1. 获得喜马拉雅数据文件：
   
   （1）苹果用户：链接电脑itunes，在app一栏中找到“喜马拉雅”，单击，右侧会出现“喜马拉雅”的数据文件。选择“iDoc”，并导出到电脑。
+
   （2）安卓用户：链接电脑后，拷贝出ting文件夹。
 
 2. 运行ximaexport-gui。
 
-    在 “ting.sqlite文件”一栏，选择步骤1中拷贝出的文件夹里的 ting.sqlite. 文件。
-    在 “导出到文件夹”一栏，选择音频存储位置。
-    在 “专辑”下拉菜单，选择要导出的专辑。若全部导出选择“All”。
-    点击“开始”开始处理。
+    1. 在 “ting.sqlite文件”一栏，选择步骤1中拷贝出的文件夹里的 ting.sqlite. 文件。
+    2. 在 “导出到文件夹”一栏，选择音频存储位置。
+    3. 在 “专辑”下拉菜单，选择要导出的专辑。若全部导出选择“All”。
+    4. 点击“开始”开始处理。
 
 
 ## Licence
 
-# Copyright 2016 Guang-zhi XU
-#
-# This file is distributed under the terms of the
-# GPLv3 licence. See the LICENSE file for details.
-# You may use, distribute and modify this code under the
-# terms of the GPLv3 license.
+Copyright 2016 Guang-zhi XU
+
+This file is distributed under the terms of the GPLv3 licence. See the LICENSE file for details.
+You may use, distribute and modify this code under the terms of the GPLv3 license.
 
 
 
