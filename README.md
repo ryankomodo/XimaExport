@@ -9,7 +9,7 @@ XimaExport 可以帮助你批量重命名音频文件，按专辑分类存储，
 ## 安装：
 
 1. 免安装可执行程序：
-  * win10 用户：到Onedrive (https://1drv.ms/u/s!AjPhQHKDm7rqgQs-PIcqfFh9i0hr) 或者某度云盘 (https://pan.baidu.com/s/1jICqgy6)下载ximaexport-gui.rar。解压。
+  * win10 用户：到Onedrive (https://1drv.ms/u/s!AjPhQHKDm7rqgQs-PIcqfFh9i0hr) 或者 dropbox (https://dl.dropboxusercontent.com/u/74222489/ximaexport-gui.rar) 或者某度云盘 (https://pan.baidu.com/s/1jICqgy6) 下载ximaexport-gui.rar。解压。
   * win7 用户：暂无
   * Mac 用户：暂无
 
@@ -31,10 +31,12 @@ XimaExport 可以帮助你批量重命名音频文件，按专辑分类存储，
   （1）苹果用户：链接电脑itunes，在app一栏中找到“喜马拉雅”，单击，右侧会出现“喜马拉雅”的数据文件。选择“iDoc”，并导出到电脑。
 
   （2）安卓用户：链接电脑后，拷贝出ting文件夹。
+  
+  （3）其他系统：不详。欢迎用户提供信息。
 
 2. 运行ximaexport-gui。
 
-    1. 在 “ting.sqlite文件”一栏，选择步骤1中拷贝出的文件夹里的 ting.sqlite. 文件。
+    1. 在 “ting.sqlite文件”一栏，选择步骤1中拷贝出的文件夹里的 ting.sqlite 文件。
     2. 在 “导出到文件夹”一栏，选择音频存储位置。
     3. 在 “专辑”下拉菜单，选择要导出的专辑。若全部导出选择“All”。
     4. 点击“开始”开始处理。
