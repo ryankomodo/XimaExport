@@ -227,7 +227,7 @@ def processAlbum(df,indir,outdir,albumid,verbose=True):
         tmpfile=False
         gotfile=False
 
-        newname="%s-%s.mp3" %(title,artist)
+        newname="%s-%s.mp4" %(title,artist)
 	newname=REPATTERN.sub(' ',newname)
         newname=os.path.join(tools.deu(subfolder),newname)
         newname=convertPath(newname)
