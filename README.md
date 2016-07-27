@@ -1,4 +1,4 @@
-# XimaExport--导出喜马拉雅app的音频文件并自动重命名
+# XimaExport--为喜马拉雅app导出的音频文件自动重命名
 
 ## 功能说明：
 
@@ -9,7 +9,7 @@ XimaExport 可以帮助你批量重命名音频文件，按专辑分类存储，
 ## 安装：
 
 1. 免安装可执行程序：
-  * win10 用户：到Onedrive (https://1drv.ms/u/s!AjPhQHKDm7rqgQs-PIcqfFh9i0hr) 或者 dropbox (https://dl.dropboxusercontent.com/u/74222489/ximaexport-gui.rar) 或者某度云盘 (https://pan.baidu.com/s/1jICqgy6) 下载ximaexport-gui.rar。解压。
+  * win10 用户：到Onedrive (https://1drv.ms/u/s!ADPhQHKDm7rqgQw) 或者 dropbox (https://dl.dropboxusercontent.com/u/74222489/ximaexport-gui.rar) 或者某度云盘 (https://pan.baidu.com/s/1pL5vbzP) 下载ximaexport-gui.rar。解压。
   * win7 用户：暂无
   * Mac 用户：暂无
 
